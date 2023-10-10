@@ -179,13 +179,20 @@ sorted_long_ride_length <- arrange(combined_df_v2, desc(ride_length_period))
 
 View(sorted_long_ride_length)
 
-  
+#original year column deleted
+combined_df_v2 <- combined_df_v2[-c(13)]
+
+#Correct year column added
+combined_df_v2$year <- year(combined_df_v2$started_at)
+
+#ride_length_seconds numberic column for calculations
+combined_df_v2$ride_length_seconds <- as.numeric(combined_df_v2$ride_length_period)
+
+#=====================================  
 # DESCRIPTIVE ANALYSIS
 #=====================================
 # Descriptive analysis on ride_length_seconds (all figures in seconds)
 
-#ride_length_seconds numberic column for calculations
-combined_df_v2$ride_length_seconds <- as.numeric(combined_df_v2$ride_length_period)
 
 # Calculates summary statistics on the combined data frame
 summary(combined_df_v2$ride_length_seconds)
@@ -227,4 +234,11 @@ combined_df_v2 %>%
   ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) +
   geom_col(position = "dodge")
 
+#=================================================
+# STEP 5: EXPORT SUMMARY FILE FOR FURTHER ANALYSIS
+#=================================================
+# Csv file that we will visualize in Excel, Tableau, or any presentation software
+# N.B.: This file location is for a Mac. If you are working on a PC, change the file location accordingly (most likely "C:\Users\YOUR_USERNAME\Desktop\...") to export the data. You can read more here: https://datatofish.com/export-dataframe-to-csv-in-r/
+counts <- aggregate(combined_df_v2$ride_length_seconds ~ combined_df_v2$member_casual + combined_df_v2$day_of_week, FUN = mean)
+write.csv(counts, file = '~/Users/jtorres/Documents/Work/Data Analysis')
 
