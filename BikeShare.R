@@ -58,7 +58,7 @@ View(sorted_long_ride_length)
 #=====================================  
 # DESCRIPTIVE ANALYSIS
 #=====================================
-# Descriptive analysis on ride_length_seconds (all figures in seconds)
+# Descriptive analysis on ride_length (all figures in seconds)
 
 
 # Calculates summary statistics on the combined data frame
@@ -93,9 +93,11 @@ combined_df_v2 %>%
   mutate(weekday = wday(started_at, label = TRUE)) %>% 
   group_by(member_casual, weekday) %>% 
   summarise(number_of_rides = n()
-            ,average_duration = mean(ride_length)) %>% 
+            ,average_duration = mean(ride_length),
+            .groups = "drop") %>% 
   arrange(member_casual, weekday)  %>% 
   ggplot(aes(x = weekday, y = number_of_rides, fill = member_casual)) +
+  labs(title = "Number of Rides by Usertype per Weekday") +
   geom_col(position = "dodge")
 
 # Let's create a visualization for average duration
@@ -106,7 +108,88 @@ combined_df_v2 %>%
             ,average_duration = mean(ride_length)) %>% 
   arrange(member_casual, weekday)  %>% 
   ggplot(aes(x = weekday, y = average_duration, fill = member_casual)) +
+  labs(title = "Average Duration by Usertype per Weekday") +
   geom_col(position = "dodge")
+
+# Count all bike types that casual and members used. Which type of bike do they most likely use?
+
+combined_df_v2 %>%
+  group_by(rideable_type, member_casual) %>%
+  summarise(count = n())
+
+
+## What popular stations are used among casual and member types?
+
+#Finding the popular stations for all user types, grouped by station and user type
+grouped_by_stations <- combined_df_v2 %>%
+  group_by(start_station_name, member_casual) %>%
+  summarise(count = n()) %>%
+  filter(!is.na(start_station_name)) %>% #Removes NA values from start_station_name
+  arrange(factor(member_casual, levels = c("casual", "member")), desc(count))
+
+#Find top ten stations for casual users from grouped_by_stations
+casual_top_ten_stations <- grouped_by_stations %>%
+  filter(member_casual == "casual") %>%
+  arrange(desc(count)) %>%
+  head(10)
+
+# Graph for popular stations for casual users
+ggplot(data = casual_top_ten_stations, aes(x = reorder(start_station_name, -count), y = count)) + 
+  geom_bar(stat = "identity", fill = "coral1") +
+  theme_minimal() +
+  labs(title = "Top 10 Popular Stations for Casual Users", x = "Start Station", y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+#Finding the top ten stations for members from grouped_by_stations
+member_top_ten_stations <- grouped_by_stations %>%
+  filter(member_casual == "member") %>%
+  arrange(desc(count)) %>%
+  head(10)
+
+# Graph for popular stations for member users
+ggplot(data = member_top_ten_stations, aes(x = reorder(start_station_name, -count), y = count)) + 
+  geom_bar(stat = "identity", fill = "darkturquoise") +
+  theme_minimal() +
+  labs(title = "Top 10 Popular Stations for Member Users", x = "Start Station", y = "Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+
+##Analyze ride counts and average durations for each month
+
+#Group by month and member type, calculate each ride count for each month
+ride_counts_by_type <- combined_df_v2 %>%
+  group_by(month, member_casual) %>%
+  summarise(total_rides = n())
+
+# Ensures 'month' is recognized as a factor
+ride_counts_by_type$month <- factor(ride_counts_by_type$month, levels = c("06", "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05"))
+
+#Graph for ride counts by users per month
+ggplot(data = ride_counts_by_type, aes(x = month, y = total_rides, color = member_casual, size = member_casual)) + 
+  geom_line(aes(group = member_casual)) +
+  labs(title = "Total Rides by User Types per Month", x = "month", y = "number_of_rides" ) +
+  scale_x_discrete() +
+  scale_color_manual(values = c("casual" = "coral", "member" = "darkturquoise")) +
+  scale_size_manual(values = c("casual" = 2, "member" = 2))
+
+
+
+#Group by month and member type, calculate avg duration for each month
+avg_ride_length_by_type <- combined_df_v2 %>%
+  group_by(month, member_casual) %>%
+  summarise(average_duration = mean(ride_length))
+
+# Ensures 'month' is recognized as a factor
+avg_ride_length_by_type$month <- factor(avg_ride_length_by_type$month, levels = c("06", "07", "08", "09", "10", "11", "12", "01", "02", "03", "04", "05"))
+
+#Graph for ride counts by users per month
+ggplot(data = avg_ride_length_by_type, aes(x = month, y = average_duration, color = member_casual, size = member_casual)) + 
+  geom_line(aes(group = member_casual)) +
+  labs(title = "Average Duration by User Types per Month", x = "month", y = "average_duration (seconds)" ) +
+  scale_x_discrete() +
+  scale_color_manual(values = c("casual" = "coral", "member" = "darkturquoise")) +
+  scale_size_manual(values = c("casual" = 2, "member" = 2))
+
 
 #=================================================
 # EXPORT SUMMARY FILE FOR FURTHER ANALYSIS
