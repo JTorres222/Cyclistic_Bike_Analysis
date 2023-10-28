@@ -9,7 +9,7 @@ The goal of this project is to analyze how annual members and casual riders of a
 
 
 <h2>Description of Data Source</h2>
-The data source I used is historical trip data made available by Motivate International Inc. I focused on data from a period of 12 months dating from June 2022 to May 2023. Each monthly dataset contains ride ids, type of bike used, start and end datetimes, start and end station names, start and end station ids, latitude and longitude coordinates for start and end stations, and the type of user (either casual or member). To start, I sorted the data based on membership and removed the latitude and longitude coordinates as those were not needed. The data is public. Data privacy issues prohibit the use of riders personal information such as credit card numbers. 
+The data source I used is historical trip data made available by Motivate International Inc. I focused on data from a period of 12 months dating from June 2022 to May 2023. Each monthly dataset contains ride ids, type of bike used, start and end datetimes, start and end station names, start and end station ids, latitude and longitude coordinates for start and end stations, and the type of user (either casual or member). The data is public. Data privacy issues prohibit the use of riders personal information such as credit card numbers. 
 
 <h2>Documentation of Data Cleaning/Transformation </h2>
 
@@ -17,17 +17,18 @@ The data source I used is historical trip data made available by Motivate Intern
 
 New
 
-- Added a new column of "day_of_week" to track the day of the week each ride started
-- Added a new column of "ride_length_hms" that contains the time length from "started_at" and "ended_at"
+- Added new seperate columns; date, month, day, year, day_of_week and ride_length (difference between ended_at and started_at columns)
 
 Changes
 
-- Combined all dataframes into one large dataframe
-- Ordered each data set by type of member_casual (casual, member)
+- Combined all dataframes into one large dataframe, combined_df
+- Arranged dataframe by type of member_casual (casual or member) and rideable_type (classic, electric or docked)
+- ride_length column converted from Factor to numeric so we can run calculations
 
 Removed
 
-- Removed unncessary columns (start_station_id, end_station_id, start_lat, start_lng, end_lat, end_lng)
+- Removed latitude and longitude columns for start and end stations (start_lat, start_lng, end_lat, end_lng))
+- Removed ride_lengths with negative periods, stored dataframe into combined_df_v2
 
 <h2>Program walk-through:</h2>
 
