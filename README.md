@@ -247,4 +247,4 @@ write.csv(counts, file = '/Users/jtorres/Documents/Work/Data Analysis/avg_ride_l
 ```
 
 <h2>Results</h2>
-
+![Alt text](URL)
