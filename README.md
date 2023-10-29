@@ -249,4 +249,33 @@ write.csv(counts, file = '/Users/jtorres/Documents/Work/Data Analysis/avg_ride_l
 <h2>Results</h2>
 <img width="703" alt="Screen Shot 2023-10-28 at 3 50 15 PM" src="https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/afdc241c-e413-4975-bb90-b30ee8b2a99c">
 
-Average ride length in seconds
+Average ride length in seconds. Average ride length is the same as average ride duration, which is shown in the graph below.
+
+![average_duration_weekday](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/b86ad2ff-43d5-4b1f-921c-16279a1a4ce8)
+
+Average ride durations visualized through this graph show that casual members typically have a higher average duration within all days during the week. In other words, they ride longer on average. Both Users show longer durations during the weekends with members just slightly above the average range within weekdays. The data suggests the importance of understanding these user-specific weekly trends to optimize bike-sharing services and effectively allocate resources based on varying usage patterns.
+
+![Number_rides_weekday](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/96cf44a7-7ce6-4af8-bb81-b1a000f06604)
+
+Based on the graph above, members ride more frequently than casual riders, especially on weekdays. On weekends, both users ride about the same amount, with just a tiny bit difference. During the weekdays, members ride a lot more frequently than casual users, above 400,000 rides per week day. Casual users ride below 200,000 per week day. This data displays the significance of customizing marketing strategies and operational planning to accomodate distinct usage patterns between these two user types, ultimately optimizing service efficiency and user experience.
+
+<img width="298" alt="Screen Shot 2023-10-28 at 8 14 07 PM" src="https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/9c10feda-4dba-4e6d-a130-f9a19841afe7">
+
+Based on results above, electric bikes are the most popular type of bike for both user types. It's interesting to note that docked bikes are only used by casual members. No data shows members using docked bikes, which could indicate an error in data collection or some other reason why docked bikes were never picked by members. One possible reason is since members frequently used the service during weekdays, which indicates usage for work, they typically used electrical or classical bikes (these bikes can be dropped off at multiple locations where the Cyclisis operates). Casuals more frequently used the service during weekends, which indicates leisure, and thus docked bikes more used for their sporadic needs.
+
+
+![top_10_stations_casual](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/8a09eff4-76e9-4d10-9621-62c690873c43)
+
+This graph displays the top ten stations in Chicago that were frequently used to carry out a ride for casual users. The most popular station was Streeter Dr & Grand Ave, displaying more than 40000 ride counts. 
+
+![top_10_stations_member](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/e585a91c-7354-4293-b034-3e2b29a3cc56)
+
+This graph displays the top ten stations in Chicago that were frequently used to carry out a ride for members. The most popular station was Kingsbury St & Kinzie St, displaying about 25000 ride counts. All the other stations don't have much of a difference, just a steady decrease in count. 
+
+![average_duration_month](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/d9e72f61-dfa4-4c18-869e-74b03d834885)
+
+Based on the graph above, casuals have a higher average duration, around the 1500 second range, which is the 25 minute range, It follows a similar pattern to counts for both user types, shown below, whre the average duration lowers as winter approaches and goes up as summer approaches. Average duration for members is below 1000 seconds (about 17 minutes)
+
+![total_rides_month](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/46e9dcc0-2190-4a73-ad66-c4030e3bae1a)
+
+Based on total rides by user types per month, both user types follow a similar ride count pattern, where max ride counts is in the summer and as autumn and winter approaches, rides decrease, then they start picking up again as spring and summer approach. As expected, members members have more counts which means they ride bikes more often than casual riders.
