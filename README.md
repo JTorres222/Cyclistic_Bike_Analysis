@@ -247,4 +247,6 @@ write.csv(counts, file = '/Users/jtorres/Documents/Work/Data Analysis/avg_ride_l
 ```
 
 <h2>Results</h2>
-![Alt text](URL)
+<img width="703" alt="Screen Shot 2023-10-28 at 3 50 15 PM" src="https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/afdc241c-e413-4975-bb90-b30ee8b2a99c">
+
+Average ride length in seconds
