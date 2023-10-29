@@ -119,7 +119,7 @@ aggregate(combined_df_v2$ride_length ~ combined_df_v2$member_casual + combined_d
 
 
 # Notice that the days of the week are out of order. Let's fix that.
-all_trips_v2$day_of_week <- ordered(all_trips_v2$day_of_week, levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+all_trips_v2$day_of_week <- ordered(all_trips_v2$day_of_week, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
 
 # Now, let's run the average ride time by each day for members vs casual users
 aggregate(combined_df_v2$ride_length ~ combined_df_v2$member_casual + combined_df_v2$day_of_week, FUN = mean)
@@ -128,7 +128,7 @@ aggregate(combined_df_v2$ride_length ~ combined_df_v2$member_casual + combined_d
 combined_df_v2 %>% 
   mutate(weekday = wday(started_at, label = TRUE)) %>%  #creates weekday field using wday()
   group_by(member_casual, weekday) %>%  #groups by usertype and weekday
-  summarise(number_of_rides = n()							#calculates the number of rides and average duration 
+  summarise(number_of_rides = n()		                   #calculates the number of rides and average duration 
             ,average_duration = mean(ride_length)) %>% 		# calculates the average duration
   arrange(member_casual, weekday)	
 
@@ -279,3 +279,9 @@ Based on the graph above, casuals have a higher average duration, around the 150
 ![total_rides_month](https://github.com/JTorres222/Cyclistic_Bike_Analysis/assets/81725586/46e9dcc0-2190-4a73-ad66-c4030e3bae1a)
 
 Based on total rides by user types per month, both user types follow a similar ride count pattern, where max ride counts is in the summer and as autumn and winter approaches, rides decrease, then they start picking up again as spring and summer approach. As expected, members members have more counts which means they ride bikes more often than casual riders.
+
+<h2>Top 3 Recommendations</h2>
+
+1. Based on the analysis, Cyclistic could offer promotions or discounts during seasonal peaks (spring and summer) that could encourage casual riders to sign up for a membership. Furthermore, offering a free trial for a week or a month could be effective so that the user could see if they would have a need to use rides through out the week.
+2. Another best recommendation is to make a rewards program for reaching certain milestones or distances. This takes into account the fact that casual riders are more likely to use rides longer than members, most likely because of leisure. The rewards could be anything from membership discounts, to free prizes to local business discounts.
+3. A marketing campaign strategy could be implemented catered towards casual users that use any of the ten popular stations shown in the data above. The campaign could highlight the stations convenience, safety and any unique features or offers made exclusively for these stations
